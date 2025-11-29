@@ -1,0 +1,16 @@
+---
+alwaysApply: true
+---
+
+## Project Overview
+
+- React + TypeScript + Vite.
+- Key files: [package.json](mdc:package.json), [tsconfig.json](mdc:tsconfig.json), [vite.config.ts](mdc:vite.config.ts), [src/main.tsx](mdc:src/main.tsx), [src/router.tsx](mdc:src/router.tsx).
+
+## Conventions
+
+- ESM only ("type": "module").
+- TS bundler resolution + `verbatimModuleSyntax`; alias `~/*` → `src/*`.
+- Follow [prettier.config.mjs](mdc:prettier.config.mjs); import order sorted; Tailwind plugin enabled.
+- UI: Shadcn UI + Tailwind. Routing: TanStack Router. Forms: [src/hooks/form.ts](mdc:src/hooks/form.ts). Validation: [src/lib/validation.ts](mdc:src/lib/validation.ts).
+- Avoid unnecessary comments. Add comments only when they provide essential context. When you do add one, use a clear prefix such as TODO:, FIXME:, NOTE:, HACK: or another appropriate label.

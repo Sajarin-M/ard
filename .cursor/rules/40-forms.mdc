@@ -1,0 +1,24 @@
+---
+globs: src/hooks/form.ts,src/components/**/*.tsx,src/routes/**/*.tsx
+---
+
+## Form hook usage
+
+- Every new form uses `useAppForm` from `~/hooks/form` with `defaultValues`, `validators: { onDynamic: schema }`, `validationLogic: revalidateLogic()`, and an async `onSubmit` that gets `{ value }`.
+- Wrap UI with `<form.AppForm><form.Form>...fields/buttons...</form.Form></form.AppForm>` so submit/disable logic stays centralized. Do not call `form.handleSubmit` manually or build ad-hoc `<form>` wrappers.
+- Keep validation schemas close to the form; reuse helpers from `~/lib/validation` when a schema already exists (passwords, numeric strings, shared error messages).
+
+## Field components
+
+- Prefer shared primitives from `~/components/form-components`: use `<form.AppField name='field' children={(field) => <field.TextField ... /> } />` or `form.Field` for arrays (as in booking question options). Let the primitives manage labels, aria, errors, and disabled state.
+- Add a new primitive to `form-components.tsx` only if it will be reused elsewhere. Follow the existing template: `useFieldContext<T>()`, `isInvalid` derived from `field.state.meta`, `aria-invalid`, and `ErrorMessages`.
+- For form-specific composites, keep them inline with `form.Field` + local components (e.g. option editors) instead of polluting `form-components.tsx`.
+
+## Modal vs page forms
+
+- Modal/dialog forms follow `CreateBookingType`/`CreateOrEditQuestion`: `DialogHeader` outside the form, body inside `<form.AppForm><form.Form>...</form.Form></form.AppForm>`, and footer with `DialogClose` + `<form.SubscribeButton>`.
+- Page-sized forms (e.g. onboarding) embed cards/layout inside the same `<form.AppForm>` structure. Use `Link` + `Button` for navigation actions and `<form.SubscribeButton disableIfDefaultValue?>` for submission.
+
+## Buttons & submission state
+
+- Always use `<form.SubscribeButton>` instead of normal buttons for submission so disabled/loading states stay in sync (`disableIfDefaultValue` when edits are optional). For other actions reuse `Button` but prevent double-submit by checking `form.state.isSubmitting` if needed.

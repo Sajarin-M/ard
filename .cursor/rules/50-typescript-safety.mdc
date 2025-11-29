@@ -1,0 +1,9 @@
+---
+globs: *.ts,*.tsx
+---
+
+## Type safety
+
+- No new `any`, `as any`, or `as unknown as` casts. Use proper generics, control-flow narrowing, or `satisfies` to keep types tight. The only tolerated `as any` uses are in existing generated files (`routeTree.gen.ts`) and the legacy helper `useWindowEvent`.
+- Generated files are read-only references; do not modify or copy their unsafe patterns into handwritten code.
+- Adhere to `10-typescript-style.mdc` (named exports, `function` declarations, `import type`, sorted imports). This file adds extra guardrails; it does not replace that style guide.

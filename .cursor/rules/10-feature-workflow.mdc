@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+
+## Feature workflow
+
+- **Study before editing**. Read the existing features for the feature area to reuse shapes, names, and UX flows instead of inventing new ones.
+- **Minimal diffs**. Touch only the files needed for the feature. Do not rename or reshuffle unrelated code, and never modify generated assets (e.g. `routeTree.gen.ts`).

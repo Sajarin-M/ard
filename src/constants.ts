@@ -1,0 +1,1 @@
+export const QUERIES_DEFAULT_STALE_TIME = 500;

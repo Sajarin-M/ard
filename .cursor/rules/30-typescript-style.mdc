@@ -1,0 +1,11 @@
+---
+globs: *.ts,*.tsx
+---
+
+## TypeScript/React Style
+
+- Exports: use named exports only; no default exports.
+- Declarations: use `function` for components/hooks/exported functions; use arrows only for callbacks/render props.
+- Types: type exported/public APIs; avoid `any`; use `import type`/`export type`.
+- Imports: follow Prettier sort and prefer `~` alias.
+- React: Automatic JSX runtime; don't import `React` just for JSX.
