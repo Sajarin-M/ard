@@ -11,10 +11,7 @@ export const env = createEnv({
     VITE_ENABLE_REACT_SCAN: z.stringbool().default(false),
   },
 
-  runtimeEnv: {
-    ...import.meta.env,
-    ...process.env,
-  },
+  runtimeEnv: import.meta.env,
 
   emptyStringAsUndefined: true,
 });
