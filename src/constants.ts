@@ -22,8 +22,12 @@ export const FPS_IDS = [
     name: 'Rasheed M',
   },
   {
-    code: '2077054',
-    name: 'Ahammedkutty',
+    code: '2077044',
+    name: 'Ahammedkutty K',
+  },
+  {
+    code: '2077048',
+    name: 'Sulaikha C',
   },
 ];
 
