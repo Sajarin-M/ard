@@ -26,7 +26,7 @@ const getORPCClient = createIsomorphicFn()
   })
   .client((): RouterClient<ORPCRouter> => {
     const link = new RPCLink({
-      url: `${env.VITE_APP_BASE_URL}/api/rpc`,
+      url: `${window.location.origin}/api/rpc`,
     });
     return createORPCClient(link);
   });

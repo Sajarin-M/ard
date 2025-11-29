@@ -7,7 +7,6 @@ export const env = createEnv({
   clientPrefix: 'VITE_',
 
   client: {
-    VITE_APP_BASE_URL: z.url(),
     VITE_ENABLE_REACT_SCAN: z.stringbool().default(false),
   },
 
