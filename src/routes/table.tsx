@@ -33,7 +33,10 @@ function TablePage() {
     }),
   );
 
-  const displayDate = format(new Date(resolvedYear, resolvedMonth - 1, 1), 'MMM yyyy');
+  const displayDate = format(
+    new Date(Number(resolvedYear), Number(resolvedMonth) - 1, 1),
+    'MMM yyyy',
+  );
 
   if (isLoading) {
     return (
