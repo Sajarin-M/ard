@@ -1,16 +1,18 @@
+import { HIDDEN_ROW_ITEMS } from '~/lib/parse-stock/constants';
+
 export interface StockItem {
-  SlNo: string;
-  Scheme: string;
-  Commodity: string;
-  Units: string;
-  AllotedRegular: string;
-  AllotedExtra: string;
-  OBQty: string;
-  ReceivedRegular: string;
-  ReceivedExtra: string;
-  ReceivedMoved: string;
-  IssuedQty: string;
-  CBQty: string;
+  slNo: string;
+  scheme: string;
+  commodity: string;
+  units: string;
+  allotedRegular: string;
+  allotedExtra: string;
+  obQuantity: string;
+  receivedRegular: string;
+  receivedExtra: string;
+  receivedMoved: string;
+  issuedQuantity: string;
+  cbQuantity: string;
 }
 
 export function parseStock({ htmlText }: { htmlText: string }): StockItem[] {
@@ -21,18 +23,18 @@ export function parseStock({ htmlText }: { htmlText: string }): StockItem[] {
   const data: StockItem[] = [];
 
   const keys: (keyof StockItem)[] = [
-    'SlNo',
-    'Scheme',
-    'Commodity',
-    'Units',
-    'AllotedRegular',
-    'AllotedExtra',
-    'OBQty',
-    'ReceivedRegular',
-    'ReceivedExtra',
-    'ReceivedMoved',
-    'IssuedQty',
-    'CBQty',
+    'slNo',
+    'scheme',
+    'commodity',
+    'units',
+    'allotedRegular',
+    'allotedExtra',
+    'obQuantity',
+    'receivedRegular',
+    'receivedExtra',
+    'receivedMoved',
+    'issuedQuantity',
+    'cbQuantity',
   ];
 
   for (const row of rows) {
@@ -45,6 +47,15 @@ export function parseStock({ htmlText }: { htmlText: string }): StockItem[] {
         item[keys[index]] = cell.textContent?.trim() || '';
       }
     });
+
+    if (
+      HIDDEN_ROW_ITEMS.some(
+        (hiddenItem) =>
+          hiddenItem.scheme === item.scheme && hiddenItem.commodity === item.commodity,
+      )
+    ) {
+      continue;
+    }
 
     if (Object.keys(item).length > 0) {
       data.push(item as StockItem);

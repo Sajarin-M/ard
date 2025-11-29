@@ -4,7 +4,7 @@ import { STOCK_LOOKUP_SCHEMA } from '~/constants';
 import { format } from 'date-fns';
 import { Loader2Icon, TriangleAlertIcon } from 'lucide-react';
 import { orpc } from '~/lib/orpc/client';
-import { parseStock } from '~/lib/parseStock';
+import { parseStock } from '~/lib/parse-stock';
 import { BackButton } from '~/components/back-button';
 import { StockTable } from '~/components/stock-table';
 

@@ -1,4 +1,4 @@
-import type { StockItem } from '~/lib/parseStock';
+import type { StockItem } from '~/lib/parse-stock';
 import {
   Table,
   TableBody,
@@ -27,10 +27,10 @@ export function StockTable({ data }: StockTableProps) {
         <TableBody>
           {data.map((row, index) => (
             <TableRow key={index}>
-              <TableCell className='font-medium'>{row.SlNo}</TableCell>
-              <TableCell>{row.Scheme}</TableCell>
-              <TableCell>{row.Commodity}</TableCell>
-              <TableCell className='text-right'>{row.CBQty}</TableCell>
+              <TableCell className='font-medium'>{index + 1}</TableCell>
+              <TableCell>{row.scheme}</TableCell>
+              <TableCell>{row.commodity}</TableCell>
+              <TableCell className='text-right'>{row.cbQuantity}</TableCell>
             </TableRow>
           ))}
         </TableBody>
