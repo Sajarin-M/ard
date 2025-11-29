@@ -16,7 +16,6 @@ import { format } from 'date-fns';
 import { orpc } from '~/lib/orpc/client';
 import { revalidateLogic, useAppForm } from '~/hooks/form';
 import { SubscribeButton } from '~/components/form-components';
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 
 export const Route = createFileRoute('/')({
   component: FormPage,
@@ -32,7 +31,7 @@ function FormPage() {
     getInitialValueInEffect: false,
   });
 
-  const currentMonth = format(new Date(), 'MMM');
+  const currentMonth = format(new Date(), 'MMMM');
   const currentYear = format(new Date(), 'yyyy');
 
   const form = useAppForm({

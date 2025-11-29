@@ -56,7 +56,9 @@ function TablePage() {
     <div className='container mx-auto space-y-4 p-4'>
       <div className='flex items-center gap-3'>
         <BackButton route={{ to: '/' }} />
-        <h1 className='text-lg font-bold'>Stock Register {displayDate}</h1>
+        <h1 className='font-semibold'>
+          Stock Register - {displayDate} ({search.fpsId})
+        </h1>
       </div>
 
       <StockTable data={data} />
