@@ -1,22 +1,28 @@
-import { createRouter as createTanstackRouter } from '@tanstack/react-router';
-import { queryClient } from '~/lib/tanstack-query';
-import { routeTree } from './routeTree.gen';
+import { createRouter } from '@tanstack/react-router';
+import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query';
+import { routeTree } from '~/routeTree.gen';
+import * as TanstackQuery from '~/lib/tanstack-query/root-provider';
 
-export const router = createTanstackRouter({
-  routeTree,
-  context: {
-    queryClient,
-  },
-  defaultNotFoundComponent: () => <div>Not Found</div>,
-  defaultPreload: 'intent',
-  defaultPreloadStaleTime: 0,
-  defaultStructuralSharing: true,
-});
+export const getRouter = () => {
+  const queryContext = TanstackQuery.getContext();
 
-export type Router = typeof router;
+  const router = createRouter({
+    routeTree,
+    context: { ...queryContext },
+    defaultPreload: 'intent',
+    defaultViewTransition: true,
+    defaultNotFoundComponent: () => <div>Not Found</div>,
+    Wrap: (props: { children: React.ReactNode }) => {
+      return <TanstackQuery.Provider {...queryContext}>{props.children}</TanstackQuery.Provider>;
+    },
+  });
 
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: Router;
-  }
-}
+  setupRouterSsrQueryIntegration({
+    router,
+    queryClient: queryContext.queryClient,
+  });
+
+  return router;
+};
+
+export type Router = ReturnType<typeof getRouter>;

@@ -1,39 +1,68 @@
+import { useReactScan } from '~/hooks/use-react-scan';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { formDevtoolsPlugin } from '@tanstack/react-form-devtools';
 import type { QueryClient } from '@tanstack/react-query';
-import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
-import '@tanstack/react-router-devtools';
+import { createRootRouteWithContext, HeadContent, Scripts } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
-import { Toaster } from '~/components/ui/sonner';
+import { Toaster } from 'sonner';
+import TanStackQueryDevtools from '~/lib/tanstack-query/devtools';
+import appCss from '~/styles.css?url';
 
 interface MyRouterContext {
   queryClient: QueryClient;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  component: RootComponent,
+  head: () => ({
+    meta: [
+      {
+        charSet: 'utf-8',
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
+      },
+      {
+        title: 'Find Time',
+      },
+    ],
+    links: [
+      {
+        rel: 'stylesheet',
+        href: appCss,
+      },
+    ],
+  }),
+  ssr: false,
+  shellComponent: RootDocument,
 });
 
-function RootComponent() {
+function RootDocument({ children }: { children: React.ReactNode }) {
+  useReactScan();
+
   return (
-    <>
-      <Outlet />
-      <TanStackDevtools
-        config={{ position: 'bottom-left', openHotkey: ['Control', 'Shift', 'T'] }}
-        plugins={[
-          formDevtoolsPlugin(),
-          {
-            name: 'TanStack Query',
-            render: <ReactQueryDevtoolsPanel />,
-          },
-          {
-            name: 'TanStack Router',
-            render: <TanStackRouterDevtoolsPanel />,
-          },
-        ]}
-      />
-      <Toaster />
-    </>
+    <html lang='en' className='light'>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <TanStackDevtools
+          config={{
+            position: 'bottom-right',
+          }}
+          plugins={[
+            formDevtoolsPlugin(),
+            {
+              name: 'Tanstack Router',
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+            TanStackQueryDevtools,
+          ]}
+        />
+        <Toaster />
+        <Scripts />
+      </body>
+    </html>
   );
 }

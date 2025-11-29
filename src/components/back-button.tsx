@@ -11,7 +11,8 @@ type BackButtonProps = Omit<React.ComponentProps<typeof Button>, 'children'> & {
 export const BackButton = ({
   route,
   onClick,
-  variant = 'secondary',
+  variant = 'outline',
+  size = 'icon-sm',
   shouldUseHistory = false,
   ...props
 }: BackButtonProps) => {
@@ -22,6 +23,7 @@ export const BackButton = ({
     <Button
       {...props}
       variant={variant}
+      size={size}
       onClick={(e) => {
         if (shouldUseHistory && router.history.canGoBack()) {
           router.history.back();
